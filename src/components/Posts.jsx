@@ -4,7 +4,6 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
-  console.log(posts);
 
   const fetchPosts = async () => {
     try {
@@ -41,11 +40,16 @@ const Posts = () => {
       </div>
       <div className="flex flex-col gap-2">
         {posts.length > 0 ? (
-          posts.slice(0, 9).map((post) => (
-            <div className="user" key={post.id}>
-              <h2 className="capitalize">{post.title}</h2>
-            </div>
-          ))
+          posts
+            ?.slice(0, 9).filter((post) =>
+              post.title.toLowerCase().includes(query.toLowerCase())
+            )
+            
+            .map((post) => (
+              <div className="user" key={post.id}>
+                <h2 className="capitalize">{post.title}</h2>
+              </div>
+            ))
         ) : (
           <h2>No Posts Found...</h2>
         )}

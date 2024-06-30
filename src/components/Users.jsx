@@ -26,6 +26,10 @@ const Users = () => {
     return <h1>Loading Users...</h1>;
   }
 
+  const fiteredUsers = users?.filter((user) => {
+    return user.name.indexOf(query) >= 0;
+  });
+
   return (
     <div className="users">
       <div className="mb-5">
@@ -41,11 +45,15 @@ const Users = () => {
 
       <div className="flex flex-col gap-2">
         {users.length > 0 ? (
-          users.map((user) => (
-            <div className="user" key={user.id}>
-              <h2>{user.name}</h2>
-            </div>
-          ))
+          users
+            ?.filter((user) =>
+              user.name.toLowerCase().includes(query.toLowerCase())
+            )
+            .map((user) => (
+              <div className="user" key={user.id}>
+                <h2>{user.name}</h2>
+              </div>
+            ))
         ) : (
           <h2>No User Found...</h2>
         )}
